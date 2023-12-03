@@ -1,45 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="ui middle aligned center aligned grid" style="background-color: rgba(0, 0, 0, 0.89); height: 100vh;">
-        <div class="two column row" style="height: 100%;">
-            <div class="column" style="background-color: rgb(0, 0, 0); height: 100vh;"><br><br><br><br><br>
-                <img src="{{ asset('images/login2.jpg') }}" alt="Imagen" style="max-width: 103%; height: auto; display: block; margin: auto;">
-            </div>
-            <div class="column" style="max-width: 450px; background-color: black; height: 100vh;">
-                <h2 class="ui teal image header"><br>
-                    <img class="ui circular image" src="{{ asset('images/logo.jpg') }}" alt="Logo" >
+    <div class="ui middle aligned center aligned grid" style="background-color: rgba(233, 226, 226, 0.938); height: 100vh;">
+
+            <div class="column" style="max-width: 450px; background-color: rgb(233, 130, 130);">
+                <h2 class="ui teal image header">
+                    <img class="ui circular image" src="{{ asset('images/logo.png') }}" alt="Logo" >
                 </h2>
                 <form class="ui large form" method="POST" action="{{ route('register') }}" >
                     @csrf
-                    <div class="ui stacked segment" style="background-color: rgba(255, 60, 0, 0.842);">
+                    <div class="ui stacked segment" style="background-color: rgba(233, 226, 226, 0.938);">
                         <div class="field">
                             <div class="ui input">
-                                <input type="text" name="name" placeholder="NOMBRE COMPLETO" required autofocus>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <select class="ui fluid dropdown" name="rol" required autofocus>
-                                <option value="">SELECCIONA UN PUESTO</option>
-                                <option value="administrador">ADMINISTRADOR</option>
-                                <option value="mesero">MESERO</option>
-                                <option value="cocinero">COCINERO</option>
-                                <option value="cajero">CAJERO</option>
-                            </select>
-                        </div>
-                        <div class="field">
-                            <div class="ui input">
-                                <input type="email" name="email" placeholder="CORREO ELECTRÓNICO" required autofocus>
+                                <input type="text" name="name" placeholder="Nombre" required autofocus>
                             </div>
                         </div>
                         <div class="field">
                             <div class="ui input">
-                                <input type="password" name="password" placeholder="CONTRASEÑA" required>
+                                <input type="email" name="email" placeholder="E-Mail" required autofocus>
                             </div>
                         </div>
                         <div class="field">
                             <div class="ui input">
-                                <input type="password" name="password_confirmation" placeholder="CONFIRMAR CONTRASEÑA" required>
+                                <input type="password" name="password" placeholder="Password" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui input">
+                                <input type="password" name="password_confirmation" placeholder="Confirmar Password" required>
                             </div>
                         </div>
                         @if ($errors->any())
@@ -54,10 +42,10 @@
                         <button type="submit" style="background-color: black;" class="ui fluid large teal submit button">Registrar</button>
                     </div>
                 </form>
-                <div class="ui message" style="background-color: rgba(255, 60, 0, 0.199); color: white">
-                    ¿Tienes cuenta? <a href="{{ route('login') }}">Iniciar Sesion</a>
+                <div class="ui message" style="background-color: rgba(233, 226, 226, 0.938);">
+                    ¿Tienes cuenta? <a href="{{ route('login') }}">Login</a>
                 </div>
             </div>
-        </div>
+
     </div>
 @endsection

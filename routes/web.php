@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\IngredientesController;
 use App\Http\Controllers\PlatillosController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\PagosController;
@@ -23,9 +23,9 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/empleados', [App\Http\Controllers\EmpleadoController::class, 'index'])->name('empleados.index');
-Route::delete('/empleados/{empleado}', [App\Http\Controllers\EmpleadoController::class, 'destroy'])->name('empleados.destroy');
-Route::resource('categorias', CategoriaController::class);
+Route::get('/usuarios', [App\Http\Controllers\UsuariosController::class, 'index'])->name('usuarios.index');
+Route::delete('/usuarios/{usuario}', [App\Http\Controllers\UsuariosController::class, 'destroy'])->name('usuarios.destroy');
+Route::resource('ingredientes', IngredientesController::class);
 Route::resource('platillos', PlatillosController::class);
 
 Route::resource('ordenes', OrdersController::class);

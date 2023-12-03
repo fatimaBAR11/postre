@@ -17,62 +17,36 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light" style="background-color: rgba(255, 60, 0, 0.842);">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    <img src="{{ asset('images/logo.jpg') }}"  style="max-height: 40px; margin-right: 10px;">
-
+        <div class="ui fixed inverted menu" style="background-color: rgba(19, 18, 18, 0.747);">
+            <div class="ui container">
+                <a href="{{ url('/') }}" class="header item">
+                    <img src="{{ asset('images/logo.png') }}" class="ui mini image" style="margin-right: 10px;">
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
-                    </ul>
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                        @guest
-
-                        @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                <div class="right menu">
+                    @guest
+                    @else
+                        <a href="{{ route('usuarios.index') }}" class="item">Usuarios</a>
+                        <a href="{{ route('ingredientes.index') }}" class="item">Ingredientes</a>
+                        <a href="" class="item">Postres </a>
+                        <div class="ui simple dropdown item">                       
+                            <span class="text">{{ Auth::user()->name }}</span>
+                            <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <a class="item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    {{ __('Cerrar Sesión') }}
                                 </a>
-                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                        {{ __('Cerrar Sesión') }}
-                                    </a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
-                        @endguest
-                    </ul>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="ui form">
+                                    @csrf
+                                </form>
+                            </div>                        
+                        </div>
+                    @endguest
                 </div>
             </div>
-        </nav>
-        @guest
-            <main>
-                @yield('content')
-            </main>
-        @else
-            <div class="ui grid">
-                <div class="three wide column" >
-                    <!-- Sidebar -->
-                    @include('layouts.sidebar')
-                </div>
-                <div class="thirteen wide column">
-                    <!-- Contenido principal -->
-                    <main class="ui segment" style="margin-top: 20px;">
-                        @yield('content')
-                    </main>
-                </div>
-            </div>
-        @endguest
+        </div>
+        <div class="ui main container" style="margin-top: 80px;">
+            @yield('content')
+        </div>
     </div>
 </body>
 </html>
