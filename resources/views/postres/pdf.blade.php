@@ -1,54 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Listado de Ordenes</title>
+    <title>PDF Postres</title>
     <style>
-        .container {
-            width: 100%;
-            margin: 0 auto;
-            padding: 20px;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h2 {
+            text-align: center;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            margin: 20px 0;
         }
         th, td {
-            border: 1px solid #000;
-            padding: 8px;
+            border: 1px solid #dddddd;
             text-align: left;
+            padding: 8px;
         }
         th {
             background-color: #f2f2f2;
         }
-        td[colspan="4"] {
-            font-weight: bold;
+        img {
+            max-width: 100px;
+            max-height: 100px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Listado de Ordenes</h2>
+        <h2>POSTRES</h2>
         <table>
             <thead>
                 <tr>
-                    <th>Estatus</th>
-                    <th>ID Orden</th>
-                    <th>Fecha</th>
+                    <th>ID</th>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Preparación</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($ordenes as $estatus => $ordenes)
-                    <tr>
-                        <td colspan="3"><strong>{{ ucfirst($estatus) }}</strong></td>
-                    </tr>
-                    @foreach ($ordenes as $orden)
-                        <tr>
-                            <td>{{ ucfirst($estatus) }}</td>
-                            <td>{{ $orden->id }}</td>
-                            <td>{{ $orden->fecha }}</td>
-                        </tr>
-                    @endforeach
+                @foreach($postres as $postre)
+                <tr>
+                    <td>{{ $postre->id }}</td>
+                    <td>
+                        @if($postre->imagen)                        
+                            <img src="{{ $postre->imagen }}" style="max-width: 100px; max-height: 100px;">
+                        @endif
+                    </td>
+                    <td>{{ $postre->nombre }}</td>
+                    <td>{{ $postre->preparacion }}</td>
+                </tr>
                 @endforeach
             </tbody>
         </table>

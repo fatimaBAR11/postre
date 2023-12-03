@@ -27,12 +27,7 @@ Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('ho
 Route::get('/usuarios', [App\Http\Controllers\UsuariosController::class, 'index'])->name('usuarios.index');
 Route::delete('/usuarios/{usuario}', [App\Http\Controllers\UsuariosController::class, 'destroy'])->name('usuarios.destroy');
 Route::resource('ingredientes', IngredientesController::class);
-Route::resource('platillos', PlatillosController::class);
 
 Route::resource('postres', PostresController::class);
-Route::get('/pagos/create/{orden}', [PagosController::class, 'create']);
-Route::resource('pagos', PagosController::class);
 
-
-Route::get('/generate-pdf', [PlatillosController::class, 'generatePDF'])->name('platillos.pdf.generate');
-Route::get('/postres/generate-pdf', [PostresController::class, 'generatePDF'])->name('postres.pdf.generate');
+Route::get('/generate-pdf', [PostresController::class, 'generatePDF'])->name('postres.pdf.generate');

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Postres;
+use Dompdf\Dompdf;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PostresController extends Controller
 {
@@ -112,12 +114,38 @@ class PostresController extends Controller
         return redirect()->route('postres.index')->with('success', '¡El postre se actualizó correctamente!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
+public function generatePDF()
+{   
+    $dompdf = new Dompdf();
+    
+    $postres = Postres::all();
+
+    foreach ($postres as $postre) {
+        if ($postre->imagen) {
+            $imagePath = public_path('imagenes_postres/' . $postre->imagen);
+            $imageBase64 = $this->getImageBase64($imagePath);
+            $postre->imagen = $imageBase64;
+        }
+    }
+
+    $html = view('postres.pdf', compact('postres'))->render();
+    $dompdf->loadHtml($html);
+    $dompdf->setPaper('A4', 'portrait');
+    $dompdf->render();
+    
+    $pdfContent = $dompdf->output();
+    Storage::disk('public')->put('PDFs/Postres.pdf', $pdfContent);
+
+    return response()->file(Storage::disk('public')->path('PDFs/Postres.pdf'));
+}
+
+function getImageBase64($imagePath) {
+    $imageData = file_get_contents($imagePath);
+    $base64 = 'data:image/' . pathinfo($imagePath, PATHINFO_EXTENSION) . ';base64,' . base64_encode($imageData);
+    return $base64;
+}
+    
     public function destroy($id)
     {
         //
