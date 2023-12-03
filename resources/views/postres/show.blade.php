@@ -2,49 +2,63 @@
 
 @section('content')
     <div class="container">
-        <h2>Detalles de la Orden #{{ $orden->id }}</h2>
+        <h2>Detalles del postre #{{ $postre->id }}</h2>
         <div class="ui segment">
-            <h3>Información de la Orden:</h3>
-            <p>Fecha: {{ $orden->fecha }}</p>
-            <p>Estatus: {{ $orden->status }}</p>
+            <h3>Información del postre:</h3>
+            <p>Nombre: {{ $postre->nombre }}</p>
+            <p>Preparacion: {{ $postre->preparacion }}</p>
         </div>
 
-        <h3>Agregar Platillos</h3>
-        <div class="ui segment">
-            <form action="{{ route('ordenes.agregar') }}" method="POST" class="ui form">
-                @csrf
-                <input type="hidden" name="order_id" value="{{ $orden->id }}">
-                <div class="field">
-                    <label for="platillo_id">Menu:</label>
-                    <select class="ui dropdown" id="platillo_id" name="platillo_id" required>
-                        <option value="">Seleccione un platillo</option>
-                        @foreach ($platillos as $platillo)
-                            <option value="{{ $platillo->id }}">{{ $platillo->name }} - ${{ $platillo->precio }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <button class="ui primary button" type="submit">Agregar Platillo</button>
-            </form>
-        </div>
-
-        <h3>Platillos Agregados a la Orden:</h3>
+        <h3>Agregar Ingredientes:</h3>
         <div class="ui segment">
             <table class="ui celled table">
                 <thead>
                     <tr>
-                        <th>Platillo</th>
-                        <th>Categoria</th>
-                        <th>Precio</th>
-                        <th>Accion</th>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Boton</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($orden->ordenDetallis as $detalle)
+                    @foreach($ingredientes as $ingrediente)
+                    <tr>
+                        <td>{{ $ingrediente->id }}</td>
+                        <td>{{ $ingrediente->name }}</td>
+                        <td>
+                            <form action="{{ route('postres.agregarIngrediente', [$postre->id, $ingrediente->id]) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <button class="ui green button" type="submit">Agregar</button>
+                            </form>                            
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+
+        <h3>Ingredientes del postre:</h3>
+        <div class="ui segment">
+            <table class="ui celled table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Boton</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($postre->postreDetalles as $detalle)
                         <tr>
-                            <td>{{ $detalle->platillo->name }}</td>
-                            <td>{{ $detalle->platillo->categoria->name }}</td>
-                            <td>${{ $detalle->platillo->precio }}</td>
-                            <td></td>
+                            <td>{{ $detalle->ingrediente->id }}</td>
+                            <td>{{ $detalle->ingrediente->name }}</td>
+                            <td>
+                                <form action="{{ route('postres.borrar', ['postre_id' => $postre->id, 'ingrediente_id' => $detalle->ingrediente->id]) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="ui red button" type="submit">Eliminar</button>
+                                </form>  
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

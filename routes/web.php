@@ -31,3 +31,5 @@ Route::resource('ingredientes', IngredientesController::class);
 Route::resource('postres', PostresController::class);
 
 Route::get('/generate-pdf', [PostresController::class, 'generatePDF'])->name('postres.pdf.generate');
+Route::put('/postres/{postre}/agregar-ingrediente/{ingrediente}', [PostresController::class, 'agregarIngrediente'])->name('postres.agregarIngrediente');
+Route::delete('/postres/{postre_id}/borrar/{ingrediente_id}', [PostresController::class, 'borrar'])->name('postres.borrar');

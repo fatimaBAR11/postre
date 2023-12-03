@@ -18,7 +18,7 @@
                     <th>Imagen</th>
                     <th>Nombre</th>
                     <th>Preparacion</th>
-                    <th>Acciones</th>
+                    <th>Botones</th>
                 </tr>
             </thead>
             <tbody>
