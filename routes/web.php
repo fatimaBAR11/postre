@@ -4,6 +4,7 @@ use App\Http\Controllers\IngredientesController;
 use App\Http\Controllers\PlatillosController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\PagosController;
+use App\Http\Controllers\PostresController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,15 +29,10 @@ Route::delete('/usuarios/{usuario}', [App\Http\Controllers\UsuariosController::c
 Route::resource('ingredientes', IngredientesController::class);
 Route::resource('platillos', PlatillosController::class);
 
-Route::resource('ordenes', OrdersController::class);
+Route::resource('postres', PostresController::class);
 Route::get('/pagos/create/{orden}', [PagosController::class, 'create']);
 Route::resource('pagos', PagosController::class);
 
-// Rutas para terminar o cancelar una orden
-Route::put('/orden/{orden}/terminar', [OrdersController::class, 'terminar'])->name('orden.terminar');
-Route::put('/orden/{orden}/cancelar', [OrdersController::class, 'cancelar'])->name('orden.cancelar');
 
-// Ruta para agregar un platillo a una orden
-Route::post('/ordenes/agregar', [OrdersController::class, 'agregar'])->name('ordenes.agregar');
 Route::get('/generate-pdf', [PlatillosController::class, 'generatePDF'])->name('platillos.pdf.generate');
-Route::get('/orders/generate-pdf', [OrdersController::class, 'generatePDF'])->name('orders.pdf.generate');
+Route::get('/postres/generate-pdf', [PostresController::class, 'generatePDF'])->name('postres.pdf.generate');

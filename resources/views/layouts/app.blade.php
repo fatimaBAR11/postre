@@ -27,7 +27,7 @@
                     @else
                         <a href="{{ route('usuarios.index') }}" class="item">Usuarios</a>
                         <a href="{{ route('ingredientes.index') }}" class="item">Ingredientes</a>
-                        <a href="" class="item">Postres </a>
+                        <a href="{{ route('postres.index') }}" class="item">Postres </a>
                         <div class="ui simple dropdown item">                       
                             <span class="text">{{ Auth::user()->name }}</span>
                             <i class="dropdown icon"></i>

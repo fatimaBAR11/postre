@@ -13,15 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('orden_detaills', function (Blueprint $table) {
+        Schema::create('postres', function (Blueprint $table) {
             $table->id();
-            $table->integer('order_id');
-            $table->integer('platillo_id');
+            $table->string('nombre');
+            $table->string('imagen')->nullable();
+            $table->text('preparacion')->nullable();
             $table->timestamps();
-
-             // Definir la clave foránea
-             $table->foreign('order_id')->references('id')->on('ordenes');
-             $table->foreign('platillo_id')->references('id')->on('platillos');
         });
     }
 
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orden_detaills');
+        Schema::dropIfExists('postres');
     }
 };
